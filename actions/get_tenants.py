@@ -16,8 +16,7 @@
 from lib.aci import ACIBaseActions
 
 
-class getSessionID(ACIBaseActions):
-    def run (self, apic="default"):
+class getTenants(ACIBaseActions):
+    def run(self, apic="default"):
         self.set_connection(apic)
-        return self.get_sessionid()
-       
+        return self.get_tenants()

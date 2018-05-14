@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import requests
 import json
+import requests
 
 from st2actions.runners.pythonrunner import Action
 
@@ -39,7 +39,7 @@ class ACIBaseActions(Action):
 
     def set_connection(self, apic=None):
 
-        if apic == None:
+        if apic is None:
             apic = "default"
         if apic not in self.config['apic']:
             raise ValueError("Invalid apic")
@@ -52,7 +52,7 @@ class ACIBaseActions(Action):
         return self.get_sessionid()
 
     def get_sessionid(self):
-        endpoint = 'aaaLogin.json' 
+        endpoint = 'aaaLogin.json'
         payload = {}
         payload['aaaUser'] = {}
         payload['aaaUser']['attributes'] = {}
@@ -60,7 +60,7 @@ class ACIBaseActions(Action):
         payload['aaaUser']['attributes']['pwd'] = self.apic_passwd
 
         jdata = self.aci_post(endpoint, payload)
-        self.apic_token =  {'APIC-Cookie': jdata['imdata'][0]['aaaLogin']['attributes']['token']}
+        self.apic_token = {'APIC-Cookie': jdata['imdata'][0]['aaaLogin']['attributes']['token']}
 
         return self.apic_token
 
@@ -96,7 +96,7 @@ class ACIBaseActions(Action):
         for item in aps['imdata']:
             all_aps.append(item['fvAp']['attributes']['dn'])
         return all_aps
-        
+
     def get_epgs(self):
         endpoint = 'node/class/fvAEPg.json'
         return self.aci_get(endpoint)
@@ -115,17 +115,16 @@ class ACIBaseActions(Action):
         endpoint = 'node/class/fvRsPathAtt.json'
         sb_results = self.aci_get(endpoint)
         if tenant:
-            dn_match = ("uni/tn-"+tenant)
+            dn_match = ("uni/tn-" + tenant)
             if app_profile:
-                dn_match += ("/ap-"+app_profile)
-           
+                dn_match += ("/ap-" + app_profile)
+
             for item in sb_results['imdata']:
-                if item['fvRsPathAtt']['attributes']['dn'].startswith(dn_match): 
+                if item['fvRsPathAtt']['attributes']['dn'].startswith(dn_match):
                     final_sb['imdata'].append(item)
         else:
             final_sb = sb_results
-        return final_sb 
-
+        return final_sb
 
     def get_domains(self):
         endpoint = 'node/class/fvDom.json'
@@ -133,7 +132,8 @@ class ACIBaseActions(Action):
 
     def get_epg_domains(self, tenant, ap, epg):
         domains = []
-        endpoint = "node/mo/uni/tn-%s/ap-%s/epg-%s.json?query-target=children&target-subtree-class=fvRsDomAtt" % (tenant, ap, epg)
+        endpoint = "node/mo/uni/tn-%s/ap-%s/epg-%s.json?query-target=children&target-subtree-class=fvRsDomAtt" % \
+                   (tenant, ap, epg)
         jdata = self.aci_get(endpoint)
         for entry in jdata['imdata']:
             domains.append(entry['fvRsDomAtt']['attributes']['tDn'])
@@ -154,13 +154,13 @@ class ACIBaseActions(Action):
             ssl_verify = self.config['defaults']['ssl']['verify']
         except:
             ssl_verify = True
-     
+
         try:
-            p = requests.post(url, headers=headers, json=payload, cookies=self.apic_token, verify=ssl_verify)
+            p = requests.post(url, headers=headers, json=payload,
+                              cookies=self.apic_token, verify=ssl_verify)
             p.raise_for_status()
             jdata = p.json()
         except requests.exceptions.HTTPError as e:
             raise Exception("Error: %s" % (p.json()['imdata'][0]['error']['attributes']['text']))
 
         return p.json()
-

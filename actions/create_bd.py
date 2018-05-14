@@ -17,10 +17,10 @@ from lib.aci import ACIBaseActions
 
 
 class createBD(ACIBaseActions):
-    def run (self, apic="default", data=None):
+    def run(self, apic="default", data=None):
         self.set_connection(apic)
         post = {}
-        
+
         for tnt in data:
             tenant = tnt
             for ap in data[tenant]:
@@ -29,9 +29,9 @@ class createBD(ACIBaseActions):
                     bridge_domain = bd
                     bridge_domain_dn = "uni/tn-%s/BD-%s" % (tenant, bridge_domain)
                     all_bds = self.get_bd_list()
-                    
+
                     if bridge_domain_dn in all_bds:
-                        post[bridge_domain_dn] = {"status":"Bridge Domain already exists"}
+                        post[bridge_domain_dn] = {"status": "Bridge Domain already exists"}
                     else:
                         endpoint = "node/mo/uni/tn-%s/BD-%s.json" % (tenant, bridge_domain)
 
@@ -40,7 +40,8 @@ class createBD(ACIBaseActions):
                         payload['fvBD']['attributes'] = {}
                         for item in self.config['defaults']['BD']:
                             payload['fvBD']['attributes'][item] = self.config['defaults']['BD'][item]
-                        payload['fvBD']['attributes']['dn'] = "uni/tn-%s/BD-%s" % (tenant, bridge_domain)
+                        payload['fvBD']['attributes']['dn'] = "uni/tn-%s/BD-%s" % \
+                                                              (tenant, bridge_domain)
                         payload['fvBD']['attributes']['name'] = bridge_domain
                         payload['fvBD']['attributes']['rn'] = "BD-%s" % bridge_domain
                         payload['fvBD']['attributes']['status'] = "created"
@@ -56,8 +57,7 @@ class createBD(ACIBaseActions):
                         fsRsBd['fvRsCtx']['attributes']['status'] = "created,modified"
                         fsRsBd['fvRsCtx']['children'] = []
                         payload['fvBD']['children'].append(fsRsBd)
-                        
+
                         post[bridge_domain_dn] = self.aci_post(endpoint, payload)
-     
+
         return post
-       

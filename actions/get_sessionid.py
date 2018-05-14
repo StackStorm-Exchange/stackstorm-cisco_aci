@@ -16,8 +16,7 @@
 from lib.aci import ACIBaseActions
 
 
-class getBDs(ACIBaseActions):
-    def run (self, apic="default"):
+class getSessionID(ACIBaseActions):
+    def run(self, apic="default"):
         self.set_connection(apic)
-        return self.get_bds()
-       
+        return self.get_sessionid()

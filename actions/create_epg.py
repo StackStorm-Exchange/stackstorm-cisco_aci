@@ -15,8 +15,9 @@
 
 from lib.aci import ACIBaseActions
 
+
 class createEPG(ACIBaseActions):
-    def run (self, apic="default", data=None):
+    def run(self, apic="default", data=None):
         self.set_connection(apic)
         post = {}
         all_bds = self.get_bd_list()
@@ -29,7 +30,7 @@ class createEPG(ACIBaseActions):
                 for bd in data[tenant][app_profile]:
                     bridge_domain = bd
                     bridge_domain_dn = "uni/tn-%s/BD-%s" % (tenant, bridge_domain)
-                    
+
                     if bridge_domain_dn not in all_bds:
                         raise Exception("Unable to find Bridge Domain")
 
@@ -40,7 +41,8 @@ class createEPG(ACIBaseActions):
                         if dn in all_epgs:
                             post[dn] = {"status": "EPG Already exists"}
                         else:
-                            endpoint = "node/mo/uni/tn-%s/ap-%s/epg-%s.json" % (tenant, app_profile, epg)
+                            endpoint = "node/mo/uni/tn-%s/ap-%s/epg-%s.json" % \
+                                       (tenant, app_profile, epg)
                             payload['fvAEPg'] = {}
                             payload['fvAEPg']['attributes'] = {}
                             payload['fvAEPg']['attributes']['dn'] = dn
@@ -56,8 +58,7 @@ class createEPG(ACIBaseActions):
                             fsRsBd['fvRsBd']['attributes']['status'] = "created,modified"
                             fsRsBd['fvRsBd']['children'] = []
                             payload['fvAEPg']['children'].append(fsRsBd)
-                        
+
                             post[dn] = self.aci_post(endpoint, payload)
-     
+
         return post
-       

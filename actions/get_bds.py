@@ -16,8 +16,7 @@
 from lib.aci import ACIBaseActions
 
 
-class getEPGS(ACIBaseActions):
-    def run (self, apic="default"):
+class getBDs(ACIBaseActions):
+    def run(self, apic="default"):
         self.set_connection(apic)
-        return self.get_epgs()
-       
+        return self.get_bds()

@@ -16,8 +16,7 @@
 from lib.aci import ACIBaseActions
 
 
-class getStaticBindings(ACIBaseActions):
-    def run (self, apic="default", tenant=None, app_profile=None):
+class getEPGS(ACIBaseActions):
+    def run(self, apic="default"):
         self.set_connection(apic)
-        return self.get_static_bindings(tenant, app_profile)
-       
+        return self.get_epgs()

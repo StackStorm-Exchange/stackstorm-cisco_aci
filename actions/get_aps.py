@@ -17,7 +17,6 @@ from lib.aci import ACIBaseActions
 
 
 class getAPs(ACIBaseActions):
-    def run (self, apic="default"):
+    def run(self, apic="default"):
         self.set_connection(apic)
         return self.get_aps()
-       
