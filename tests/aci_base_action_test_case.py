@@ -12,8 +12,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 
-import yaml
 import json
+import yaml
 
 from st2tests.base import BaseActionTestCase
 
@@ -47,4 +47,3 @@ class CiscoACIBaseActionTestCase(BaseActionTestCase):
     def test_run_config_new(self):
         action = self.get_action_instance(self.new_config)
         self.assertIsInstance(action, self.action_cls)
-
