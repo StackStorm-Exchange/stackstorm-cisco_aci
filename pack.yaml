@@ -1,4 +1,4 @@
-ref: aci
+ref: cisco_aci
 name: Cisco ACI
 description: Cisco ACI pack
 version: 0.1.0
@@ -7,4 +7,4 @@ email: paul.mulvihill@pulsant.com
 keywords:
     - cisco
     - aci
-
+    - networking
