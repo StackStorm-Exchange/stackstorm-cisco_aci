@@ -39,11 +39,11 @@ class CiscoACIBaseActionTestCase(BaseActionTestCase):
 
     @property
     def good_config(self):
-        return self._new_config
+        return self._good_config
 
     def test_run_config_blank(self):
         self.assertRaises(ValueError, self.action_cls, self.blank_config)
 
     def test_run_config_new(self):
-        action = self.get_action_instance(self.new_config)
+        action = self.get_action_instance(self.good_config)
         self.assertIsInstance(action, self.action_cls)
