@@ -55,7 +55,7 @@ class ACIBaseActions(Action):
 
         self.apic_token = ""
 
-        if all (v is not None for v in [self.apic_address,
+        if all(v is not None for v in [self.apic_address,
                                         self.apic_user,
                                         self.apic_passwd]):
             return self.get_sessionid()
@@ -124,9 +124,9 @@ class ACIBaseActions(Action):
         endpoint = 'node/class/fvRsPathAtt.json'
         sb_results = self.aci_get(endpoint)
         if tenant:
-            dn_match = ("uni/tn-"+tenant)
+            dn_match = ("uni/tn-" + tenant)
             if app_profile:
-                dn_match += ("/ap-"+app_profile)
+                dn_match += ("/ap-" + app_profile)
 
             for item in sb_results['imdata']:
                 if item['fvRsPathAtt']['attributes'][
@@ -209,8 +209,8 @@ class ACIBaseActions(Action):
                                         acp].keys():
                                     allocation[pod][switch]['ports'][ethport][
                                         'policy'] = structure[switch][
-                                         switch_profile][int_profile][
-                                         acp]['policy']
+                                        switch_profile][int_profile][
+                                        acp]['policy']
                                 else:
                                     allocation[pod][switch]['ports'][ethport][
                                         'policy'] = ""
