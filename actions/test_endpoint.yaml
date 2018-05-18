@@ -1,0 +1,25 @@
+---
+  name: "test_endpoint"
+  runner_type: "python-script"
+  description: "Retrieve list of Application Profiles"
+  enabled: true
+  entry_point: "test_endpoint.py"
+  parameters:
+    apic:
+      type: "string"
+      description: "Which ACI APIC would you like to connect to"
+      required: true
+      position: 0
+    endpoint:
+      type: "string"
+      description: "Test getting data from an endpoint"
+      required: true
+      position: 1
+    credentials:
+      type: "object"
+      description: "Field to provide username and password, eg { \"user\":\"username\", \"passwd\": \"secret\" }"
+      required: false
+      secret: true
+      position: 2
+
+
