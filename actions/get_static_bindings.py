@@ -17,6 +17,7 @@ from lib.aci import ACIBaseActions
 
 
 class getStaticBindings(ACIBaseActions):
-    def run(self, apic="default", tenant=None, app_profile=None):
-        self.set_connection(apic)
+    def run(self, apic="default", tenant=None,
+            app_profile=None, credentials=None):
+        self.set_connection(apic, credentials)
         return self.get_static_bindings(tenant, app_profile)

@@ -20,3 +20,10 @@
       description: "Which Application Profile within the tenant to retrieve static bindings for"
       required: false
       position: 2
+    credentials:
+      type: "object"
+      description: "Field to provide username and password, eg { \"user\":\"username\", \"passwd\": \"secret\" }"
+      required: false
+      secret: true
+      position: 3
+
