@@ -1,0 +1,27 @@
+apic:
+  apic1:
+    address: 192.168.0.5
+    user: read.only
+    passwd: read.only
+    domains:
+      PHYS:
+        type: phys
+      VM1:
+        tdn: 'uni/vmmp-VMware/dom-Vmware-Cluster1'
+        type: vmm
+    leafs:
+      pod-1:
+        leaf1:
+          path: 201
+        leaf2:
+          path: 202
+
+defaults:
+  ssl:
+    verify: False
+  BD:
+    arpFlood: "yes"
+    limitIpLearnToSubnets: "no"
+    unicastRoute: "no"
+    unkMacUcastAct: flood
+
