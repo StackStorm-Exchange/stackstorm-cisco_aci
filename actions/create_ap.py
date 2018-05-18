@@ -16,7 +16,7 @@
 from lib.aci import ACIBaseActions
 
 
-class createBD(ACIBaseActions):
+class createAP(ACIBaseActions):
     def run(self, apic="default", data=None, credentials=None):
         self.set_connection(apic, credentials)
         post = {}
