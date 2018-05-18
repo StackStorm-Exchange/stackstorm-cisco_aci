@@ -17,8 +17,8 @@ from lib.aci import ACIBaseActions
 
 
 class createBD(ACIBaseActions):
-    def run(self, apic="default", data=None):
-        self.set_connection(apic)
+    def run(self, apic="default", data=None, credentials=None):
+        self.set_connection(apic, credentials)
         post = {}
 
         for tnt in data:
@@ -27,23 +27,29 @@ class createBD(ACIBaseActions):
                 app_profile = ap
                 for bd in data[tenant][app_profile]:
                     bridge_domain = bd
-                    bridge_domain_dn = "uni/tn-%s/BD-%s" % (tenant, bridge_domain)
+                    bridge_domain_dn = "uni/tn-%s/BD-%s" % \
+                        (tenant, bridge_domain)
                     all_bds = self.get_bd_list()
 
                     if bridge_domain_dn in all_bds:
-                        post[bridge_domain_dn] = {"status": "Bridge Domain already exists"}
+                        post[bridge_domain_dn] = \
+                            {"status": "Bridge Domain already exists"}
                     else:
-                        endpoint = "node/mo/uni/tn-%s/BD-%s.json" % (tenant, bridge_domain)
+                        endpoint = "node/mo/uni/tn-%s/BD-%s.json" % \
+                            (tenant, bridge_domain)
 
                         payload = {}
                         payload['fvBD'] = {}
                         payload['fvBD']['attributes'] = {}
                         for item in self.config['defaults']['BD']:
-                            payload['fvBD']['attributes'][item] = self.config['defaults']['BD'][item]
-                        payload['fvBD']['attributes']['dn'] = "uni/tn-%s/BD-%s" % \
-                                                              (tenant, bridge_domain)
-                        payload['fvBD']['attributes']['name'] = bridge_domain
-                        payload['fvBD']['attributes']['rn'] = "BD-%s" % bridge_domain
+                            payload['fvBD']['attributes'][item] = \
+                                self.config['defaults']['BD'][item]
+                        payload['fvBD']['attributes']['dn'] = \
+                            "uni/tn-%s/BD-%s" % (tenant, bridge_domain)
+                        payload['fvBD']['attributes']['name'] = \
+                            bridge_domain
+                        payload['fvBD']['attributes']['rn'] = \
+                            "BD-%s" % bridge_domain
                         payload['fvBD']['attributes']['status'] = "created"
                         payload['fvBD']['children'] = []
 
@@ -51,13 +57,16 @@ class createBD(ACIBaseActions):
                         fsRsBd['fvRsCtx'] = {}
                         fsRsBd['fvRsCtx']['attributes'] = {}
                         if data[tenant][app_profile][bridge_domain]['vrf']:
-                            fsRsBd['fvRsCtx']['attributes']['tnFvCtxName'] = data[tenant][app_profile][bridge_domain]['vrf']
+                            fsRsBd['fvRsCtx']['attributes']['tnFvCtxName'] = \
+                                data[tenant][app_profile][bridge_domain]['vrf']
                         else:
-                            fsRsBd['fvRsCtx']['attributes']['tnFvCtxName'] = "%s-VRF1" % tenant
-                        fsRsBd['fvRsCtx']['attributes']['status'] = "created,modified"
+                            fsRsBd['fvRsCtx']['attributes']['tnFvCtxName'] = \
+                                "%s-VRF1" % tenant
+                        fsRsBd['fvRsCtx']['attributes']['status'] = \
+                            "created,modified"
                         fsRsBd['fvRsCtx']['children'] = []
                         payload['fvBD']['children'].append(fsRsBd)
-
-                        post[bridge_domain_dn] = self.aci_post(endpoint, payload)
+                        post[bridge_domain_dn] = self.aci_post(endpoint,
+                                                               payload)
 
         return post

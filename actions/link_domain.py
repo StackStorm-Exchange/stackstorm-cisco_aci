@@ -13,13 +13,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import re
 from lib.aci import ACIBaseActions
+import re
 
 
 class linkDomains(ACIBaseActions):
-    def run(self, apic="default", data=None):
-        self.set_connection(apic)
+    def run(self, apic="default", data=None, credentials=None):
+        self.set_connection(apic, credentials)
         post = {}
 
         for tnt in data:
@@ -30,36 +30,53 @@ class linkDomains(ACIBaseActions):
                     bridge_domain = bd
                     for eg in data[tenant][app_profile][bridge_domain]['epgs']:
                         epg = eg
-                        current_domains = self.get_epg_domains(tenant, app_profile, epg)
-                        for domain in data[tenant][app_profile][bridge_domain]['epgs'][epg]['domains']:
+                        current_domains = self.get_epg_domains(
+                            tenant, app_profile, epg)
+                        for domain in data[tenant][app_profile][
+                                bridge_domain]['epgs'][epg]['domains']:
 
-                            endpoint = "node/mo/uni/tn-%s/ap-%s/epg-%s.json" % \
-                                       (tenant, app_profile, epg)
+                            endpoint = "node/mo/uni/tn-%s/ap-%s/epg-%s.json" %\
+                                (tenant, app_profile, epg)
                             payload = {}
                             payload['fvRsDomAtt'] = {}
                             payload['fvRsDomAtt']['attributes'] = {}
-                            payload['fvRsDomAtt']['attributes']['status'] = "created"
+                            payload['fvRsDomAtt']['attributes'][
+                                'status'] = "created"
                             payload['fvRsDomAtt']['children'] = []
 
-                            if "tdn" in self.config['apic'][apic]['domains'][domain].keys():
-                                payload['fvRsDomAtt']['attributes']['tDn'] = self.config['apic'][apic]['domains'][domain]['tdn']
-                            elif self.config['apic'][apic]['domains'][domain]['type'] == "phys":
-                                apnum = re.match('.*?([0-9]+)$', app_profile).group(1)
-                                payload['fvRsDomAtt']['attributes']['tDn'] = ("uni/phys-Managed-Hosting-%s-Domain%s" % (tenant, apnum))
+                            if "tdn" in self.config['apic'][apic]['domains'][
+                                    domain].keys():
+                                payload['fvRsDomAtt']['attributes']['tDn'] = \
+                                    self.config['apic'][apic]['domains'][
+                                    domain]['tdn']
+                            elif self.config['apic'][apic]['domains'][
+                                    domain]['type'] == "phys":
+                                apnum = re.match('.*?([0-9]+)$',
+                                                 app_profile).group(1)
+                                payload['fvRsDomAtt']['attributes']['tDn'] = \
+                                    ("uni/phys-Managed-Hosting-%s-Domain%s" %
+                                        (tenant, apnum))
                             else:
-                                raise Exception("Incomplete Domain configuration")
+                                raise Exception("Incomplete Domain \
+                                                configuration")
 
-                            if self.config['apic'][apic]['domains'][domain]['type'] == "vmm":
-                                payload['fvRsDomAtt']['attributes']['resImedcy'] = "immediate"
+                            if self.config['apic'][apic]['domains'][domain][
+                                    'type'] == "vmm":
+                                payload['fvRsDomAtt']['attributes'][
+                                    'resImedcy'] = "immediate"
                                 vmmsecp = {}
                                 vmmsecp['vmmSecP'] = {}
-                                vmmsecp['vmmSecP']['attributes'] = {"status": "created"}
+                                vmmsecp['vmmSecP']['attributes'] = {
+                                    "status": "created"}
                                 vmmsecp['vmmSecP']['children'] = []
-                                payload['fvRsDomAtt']['children'].append(vmmsecp)
+                                payload['fvRsDomAtt'][
+                                    'children'].append(vmmsecp)
 
-                            if payload['fvRsDomAtt']['attributes']['tDn'] not in current_domains:
+                            if payload['fvRsDomAtt']['attributes']['tDn'] \
+                                    not in current_domains:
                                 post = self.aci_post(endpoint, payload)
                             else:
-                                post[payload['fvRsDomAtt']['attributes']['tDn']] = "Already linked"
+                                post[payload['fvRsDomAtt']['attributes'][
+                                    'tDn']] = "Already linked"
 
         return post

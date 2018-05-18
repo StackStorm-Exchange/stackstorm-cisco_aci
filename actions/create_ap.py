@@ -17,8 +17,8 @@ from lib.aci import ACIBaseActions
 
 
 class createBD(ACIBaseActions):
-    def run(self, apic="default", data=None):
-        self.set_connection(apic)
+    def run(self, apic="default", data=None, credentials=None):
+        self.set_connection(apic, credentials)
         post = {}
 
         for tenant in data:
@@ -26,7 +26,8 @@ class createBD(ACIBaseActions):
                 all_aps = self.get_ap_list()
                 app_profile_dn = "uni/tn-%s/ap-%s" % (tenant, app_profile)
                 if app_profile_dn in all_aps:
-                    post[app_profile_dn] = {"status": "Application Profile already exists"}
+                    post[app_profile_dn] = \
+                        {"status": "Application Profile already exists"}
                 else:
                     endpoint = "node/mo/%s.json" % (app_profile_dn)
 
@@ -36,12 +37,11 @@ class createBD(ACIBaseActions):
                     if self.config['defaults']:
                         if "AP" in self.config['defaults'].keys():
                             for item in self.config['defaults']['AP']:
-                                payload['fvAp']['attributes'][item] = self.config['defaults']['AP'][item]
+                                payload['fvAp']['attributes'][item] = \
+                                    self.config['defaults']['AP'][item]
                     payload['fvAp']['attributes']['dn'] = app_profile_dn
                     payload['fvAp']['attributes']['name'] = app_profile
                     payload['fvAp']['attributes']['status'] = "created"
                     payload['fvAp']['children'] = []
-
                     post[app_profile_dn] = self.aci_post(endpoint, payload)
-
         return post

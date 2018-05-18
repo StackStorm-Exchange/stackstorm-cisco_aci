@@ -17,6 +17,6 @@ from lib.aci import ACIBaseActions
 
 
 class getTenants(ACIBaseActions):
-    def run(self, apic="default"):
-        self.set_connection(apic)
+    def run(self, apic="default", credentials=None):
+        self.set_connection(apic, credentials)
         return self.get_tenants()

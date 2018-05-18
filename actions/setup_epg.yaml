@@ -18,3 +18,10 @@ parameters:
     description: "Json Object showing epg structure"
     position: 1
     required: true
+  credentials:
+    type: "object"
+    description: "Field to provide username and password, eg { \"user\":\"username\", \"passwd\": \"secret\" }"
+    required: false
+    secret: true
+    position: 2
+
