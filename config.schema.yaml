@@ -14,11 +14,11 @@ apics:
       type: "string"
       required: true
     user:
-      description: "Authentication user-id for the APIC."
+      description: "Authentication user-id for the APIC. Minimum requirement is a read only account."
       type: "string"
       required: true
     passwd:
-      description: "The password of the specified user."
+      description: "The password of the specified user. Minimum requirement is a read only account."
       type: "string"
       secret: true
       required: true
