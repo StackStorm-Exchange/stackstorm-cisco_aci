@@ -56,8 +56,8 @@ class ACIBaseActions(Action):
         self.apic_token = ""
 
         if all(v is not None for v in [self.apic_address,
-                                        self.apic_user,
-                                        self.apic_passwd]):
+                                       self.apic_user,
+                                       self.apic_passwd]):
             return self.get_sessionid()
         else:
             raise ValueError("Incomplete Connection Details")
@@ -163,7 +163,7 @@ class ACIBaseActions(Action):
 
         try:
             ssl_verify = self.config['defaults']['ssl']['verify']
-        except:
+        except ValueError:
             ssl_verify = True
 
         try:
