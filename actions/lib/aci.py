@@ -170,7 +170,7 @@ class ACIBaseActions(Action):
                 ssl_verify = ssl_check
             else:
                 ssl_verify = True
-        except:
+        except Exception:
             ssl_verify = True
 
         try:
