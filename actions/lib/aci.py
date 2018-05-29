@@ -163,7 +163,6 @@ class ACIBaseActions(Action):
 
         try:
             ssl_check = self.config['defaults']['ssl']['verify']
-            #if isinstance(ssl_check, basestring):
             if type(ssl_check) in (str, unicode):
                 if ssl_check.upper() == "FALSE":
                     ssl_verify = False
