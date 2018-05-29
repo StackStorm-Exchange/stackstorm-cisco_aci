@@ -158,6 +158,7 @@ class ACIBaseActions(Action):
 
     def aci_post(self, endpoint, payload):
         url = 'https://%s/api/%s' % (self.apic_address, endpoint)
+        ssl_verify = True
         headers = {'Accept': 'application/json',
                    'Content-type': 'application/json'}
 
