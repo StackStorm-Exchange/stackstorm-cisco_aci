@@ -162,8 +162,16 @@ class ACIBaseActions(Action):
                    'Content-type': 'application/json'}
 
         try:
-            ssl_verify = self.config['defaults']['ssl']['verify']
-        except ValueError:
+            ssl_check = self.config['defaults']['ssl']['verify']
+            #if isinstance(ssl_check, basestring):
+            if type(ssl_check) in (str, unicode):
+                if ssl_check.upper() == "FALSE":
+                    ssl_verify = False
+            elif isinstance(ssl_check, bool):
+                ssl_verify = ssl_check
+            else:
+                ssl_verify = True
+        except:
             ssl_verify = True
 
         try:
