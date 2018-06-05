@@ -1,7 +1,7 @@
 ---
   name: "get_bds"
   runner_type: "python-script"
-  description: "Retrieve list of Tenants"
+  description: "Retrieve list of Bridge Domains"
   enabled: true
   entry_point: "get_bds.py"
   parameters:

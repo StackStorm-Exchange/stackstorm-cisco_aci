@@ -1,7 +1,7 @@
 ---
   name: "get_epgs"
   runner_type: "python-script"
-  description: "Retrieve list of Tenants"
+  description: "Retrieve list of End Point Groups"
   enabled: true
   entry_point: "get_epgs.py"
   parameters:

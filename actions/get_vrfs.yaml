@@ -1,7 +1,7 @@
 ---
   name: "get_vrfs"
   runner_type: "python-script"
-  description: "Retrieve list of Tenants"
+  description: "Retrieve list of VRFs"
   enabled: true
   entry_point: "get_vrfs.py"
   parameters:
