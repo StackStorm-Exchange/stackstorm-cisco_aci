@@ -1,5 +1,9 @@
 # Change Log
 
+## V0.1.4
+
+Version bump to fix tagging issues
+
 ## V0.1.3
 
 Update to pack name to match reference
