@@ -20,22 +20,17 @@ class createTenant(ACIBaseActions):
         self.set_connection(apic, credentials)
         post = {}
 
-#        for tenant in tenant_name:
-#            all_tenants = self.get_tenant_list()
-#            tenant_dn = "uni/tn-%s" % (tenant)
-
-	tenant_dn = "uni/tn-%s" % (tenant_name)
+    	tenant_dn = "uni/tn-%s" % (tenant_name)
         all_tenants = self.get_tenant_list()    
         if tenant_dn in all_tenants:
-           post[tenant_dn] = {"status": "Tenant already exists"}
+            post[tenant_dn] = {"status": "Tenant already exists"}
         else:
-
-           endpoint = "node/mo/%s.json" % (tenant_dn)
-           payload = {}
-           payload['fvTenant'] = {}
-           payload['fvTenant']['attributes'] = {}
-           payload['fvTenant']['attributes']['name'] = tenant_name
-           post[tenant_dn] = self.aci_post(endpoint, payload)
+            endpoint = "node/mo/%s.json" % (tenant_dn)
+            payload = {}
+            payload['fvTenant'] = {}
+            payload['fvTenant']['attributes'] = {}
+            payload['fvTenant']['attributes']['name'] = tenant_name
+            post[tenant_dn] = self.aci_post(endpoint, payload)
         return post
 
 
