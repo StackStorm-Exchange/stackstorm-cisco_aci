@@ -32,5 +32,3 @@ class createTenant(ACIBaseActions):
             payload['fvTenant']['attributes']['name'] = tenant_name
             post[tenant_dn] = self.aci_post(endpoint, payload)
         return post
-
-
