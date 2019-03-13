@@ -32,9 +32,9 @@ class createTenant(ACIBaseActions):
 
            endpoint = "node/mo/%s.json" % (tenant_dn)
            payload = {}
-           payload['fvTenant'] ={}
+           payload['fvTenant'] = {}
            payload['fvTenant']['attributes'] = {}
-           payload['fvTenant']['attributes']['name']= tenant_name
+           payload['fvTenant']['attributes']['name'] = tenant_name
            post[tenant_dn] = self.aci_post(endpoint, payload)
         return post
 
