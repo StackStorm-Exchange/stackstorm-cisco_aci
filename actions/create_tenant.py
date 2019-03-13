@@ -18,7 +18,7 @@ from lib.aci import ACIBaseActions
 class createTenant(ACIBaseActions):
     def run(self, apic="default", tenant_name=None, credentials=None):
         self.set_connection(apic, credentials)
-        post = {} 
+        post = {}
         tenant_dn = "uni/tn-%s" % (tenant_name)
         all_tenants = self.get_tenant_list()
         if tenant_dn in all_tenants:

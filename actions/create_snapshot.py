@@ -21,15 +21,12 @@ class createSnapshot(ACIBaseActions):
     def run(self, apic="default", description=None, credentials=None):
         self.set_connection(apic, credentials)
         post = {}
-
         snapshot_dn = "uni/fabric/configexp-defaultOneTime"
-
         endpoint = "/node/mo/uni/fabric/configexp-defaultOneTime.json"
         payload = {}
         payload['configExportP'] = {}
         payload['configExportP']['attributes'] = {}
         payload['configExportP']['attributes']['descr'] = description
         payload['configExportP']['attributes']['adminSt'] = "triggered"
-
         post[snapshot_dn] = self.aci_post(endpoint, payload)
         return post
