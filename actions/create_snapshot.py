@@ -22,7 +22,7 @@ class createSnapshot(ACIBaseActions):
         self.set_connection(apic, credentials)
         post = {}
 
-        # for snapshot_descr in description:
+# for snapshot_descr in description:
         snapshot_dn = "uni/fabric/configexp-defaultOneTime"
 
         endpoint = "/node/mo/uni/fabric/configexp-defaultOneTime.json"
