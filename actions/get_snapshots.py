@@ -15,6 +15,7 @@
 
 from lib.aci import ACIBaseActions
 
+
 class getSnapshots(ACIBaseActions):
     def run(self, apic="default", credentials=None):
         self.set_connection(apic, credentials)
