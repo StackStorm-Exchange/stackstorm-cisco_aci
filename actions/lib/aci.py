@@ -79,7 +79,7 @@ class ACIBaseActions(Action):
     def get_tenants(self):
         endpoint = 'node/class/fvTenant.json'
         return self.aci_get(endpoint)
-    
+
     def get_snapshots(self):
         endpoint = 'node/class/configSnapshot.json'
         return self.aci_get(endpoint)
@@ -90,7 +90,6 @@ class ACIBaseActions(Action):
         for item in tenants['imdata']:
             all_tenants.append(item['fvTenant']['attributes']['dn'])
         return all_tenants
-
 
     def get_vrfs(self):
         endpoint = 'node/class/fvCtx.json'
