@@ -1,0 +1,103 @@
+---
+  name: "create_interface_leaf_policy_group"
+  runner_type: "python-script"
+  description: "Create an interface leaf policy group"
+  enabled: true
+  entry_point: "create_interface_leaf_policy_group.py"
+  parameters:
+    apic:
+      type: "string"
+      description: "Which ACI APIC would you like to connect to"
+      required: true
+      position: 0
+    credentials:
+      type: "object"
+      description: "Field to provide username and password, eg { \"user\":\"username\", \"passwd\": \"secret\" }"
+      required: false
+      secret: true
+      position: 1
+    Group_Policy_Name:
+      type: "string"
+      description: "Enter the interface leaf policy group name"
+      required: true
+      position: 2
+    STP_Interface_Policy:
+      type: "string"
+      description: "Enter the STP interface policy"
+      required: true
+      position: 3
+    Ingress_Data_Plane_Policing_Policy:
+      type: "string"
+      description: "Enter the Ingress data plane policing policy"
+      required: true
+      position: 4
+    Storm_Control_Interface_Policy:
+      type: "string"
+      description: "Enter the storm control interface policy"
+      required: true
+      position: 5
+    Egress_Data_Plane_Policing_Policy:
+      type: "string"
+      description: "Enter the Egress control interface policy"
+      required: true
+      position: 6
+    Slow_Drain_Policy:
+      type: "string"
+      description: "Enter the slow drain policy"
+      required: true
+      position: 7
+    Monitoring_Policy:
+      type: "string"
+      description: "Enter the monitoring policy"
+      required: true
+      position: 8
+    MCP_Policy:
+      type: "string"
+      description: "Enter the mcp policy"
+      required: true
+      position: 9
+    CDP_Policy:
+      type: "string"
+      description: "Enter the cdp policy "
+      required: true
+      position: 10
+    L2_Interface_Policy:
+      type: "string"
+      description: "Enter the L2 interface policy "
+      required: true
+      position: 11
+    CoPP_Policy:
+      type: "string"
+      description: "Enter the copp policy"
+      required: true
+      position: 12
+    LLDP_Policy:
+      type: "string"
+      description: "Enter the lldp policy"
+      required: true
+      position: 13
+    Fibre_Channel_Interface_Policy:
+      type: "string"
+      description: "Enter the fibre channel interface policy"
+      required: true
+      position: 14
+    Priority_Flow_Control_Policy:
+      type: "string"
+      description: "Enter the priority flow contrl policy"
+      required: true
+      position: 15
+    Link_Level_Policy:
+      type: "string"
+      description: "Enter the link level policy"
+      required: true
+      position: 16
+    Port_Security_Policy:
+      type: "string"
+      description: "Enter the port security policy"
+      required: true
+      position: 17
+    dot1x_Port_Authentication_Policy:
+      type: "string"
+      description: "Enter the dot1X port authentication policy"
+      required: true
+      position: 18
