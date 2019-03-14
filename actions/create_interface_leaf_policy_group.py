@@ -17,10 +17,15 @@ from lib.aci import ACIBaseActions
 
 
 class createInterfaceGroupPolicy(ACIBaseActions):
-    def run(self, apic="default", credentials=None, Group_Policy_Name=None, STP_Interface_Policy=None, Ingress_Data_Plane_Policing_Policy=None,
-            Storm_Control_Interface_Policy=None, Egress_Data_Plane_Policing_Policy=None, Slow_Drain_Policy=None, Monitoring_Policy=None, MCP_Policy=None,
-            CDP_Policy=None, L2_Interface_Policy=None, CoPP_Policy=None, LLDP_Policy=None,
-            Fibre_Channel_Interface_Policy=None, Priority_Flow_Control_Policy=None, Link_Level_Policy=None, Port_Security_Policy=None, dot1x_Port_Authentication_Policy=None):
+    def run(self, apic="default", credentials=None,\
+            Group_Policy_Name=None, STP_Interface_Policy=None,\
+            Ingress_Data_Plane_Policing_Policy=None, Storm_Control_Interface_Policy=None,\
+            Egress_Data_Plane_Policing_Policy=None, Slow_Drain_Policy=None,\
+            Monitoring_Policy=None, MCP_Policy=None, CDP_Policy=None,\
+            L2_Interface_Policy=None, CoPP_Policy=None, LLDP_Policy=None,\
+            Fibre_Channel_Interface_Policy=None, Priority_Flow_Control_Policy=None,\
+            Link_Level_Policy=None, Port_Security_Policy=None,\
+            dot1x_Port_Authentication_Policy=None):
 
         self.set_connection(apic, credentials)
         post = {}
@@ -36,42 +41,48 @@ class createInterfaceGroupPolicy(ACIBaseActions):
         stp_interface_policy = {}
         stp_interface_policy['infraRsStpIfPol'] = {}
         stp_interface_policy['infraRsStpIfPol']['attributes'] = {}
-        stp_interface_policy['infraRsStpIfPol']['attributes']['tnStpIfPolName'] = STP_Interface_Policy
+        stp_interface_policy['infraRsStpIfPol']['attributes']\
+                ['tnStpIfPolName'] = STP_Interface_Policy
 
         payload['infraAccPortGrp']['children'].append(stp_interface_policy)
 
         ingress_data_plane_policing_policy = {}
         ingress_data_plane_policing_policy['infraRsQosIngressDppIfPol'] = {}
         ingress_data_plane_policing_policy['infraRsQosIngressDppIfPol']['attributes'] = {}
-        ingress_data_plane_policing_policy['infraRsQosIngressDppIfPol']['attributes']['tnQosDppPolName'] = Ingress_Data_Plane_Policing_Policy
+        ingress_data_plane_policing_policy['infraRsQosIngressDppIfPol']\
+                ['attributes']['tnQosDppPolName'] = Ingress_Data_Plane_Policing_Policy
 
         payload['infraAccPortGrp']['children'].append(ingress_data_plane_policing_policy)
 
         storm_control_interface_policy = {}
         storm_control_interface_policy['infraRsStormctrlIfPol'] = {}
         storm_control_interface_policy['infraRsStormctrlIfPol']['attributes'] = {}
-        storm_control_interface_policy['infraRsStormctrlIfPol']['attributes']['tnStormctrlIfPolName'] = Storm_Control_Interface_Policy
+        storm_control_interface_policy['infraRsStormctrlIfPol']\
+                ['attributes']['tnStormctrlIfPolName'] = Storm_Control_Interface_Policy
 
         payload['infraAccPortGrp']['children'].append(storm_control_interface_policy)
 
         egress_data_plane_policing_policy = {}
         egress_data_plane_policing_policy['infraRsQosEgressDppIfPol'] = {}
         egress_data_plane_policing_policy['infraRsQosEgressDppIfPol']['attributes'] = {}
-        egress_data_plane_policing_policy['infraRsQosEgressDppIfPol']['attributes']['tnQosDppPolName'] = Egress_Data_Plane_Policing_Policy
+        egress_data_plane_policing_policy['infraRsQosEgressDppIfPol']\
+                ['attributes']['tnQosDppPolName'] = Egress_Data_Plane_Policing_Policy
 
         payload['infraAccPortGrp']['children'].append(egress_data_plane_policing_policy)
 
         slow_drain_policy = {}
         slow_drain_policy['infraRsQosSdIfPol'] = {}
         slow_drain_policy['infraRsQosSdIfPol']['attributes'] = {}
-        slow_drain_policy['infraRsQosSdIfPol']['attributes']['tnQosSdIfPolName'] = Slow_Drain_Policy
+        slow_drain_policy['infraRsQosSdIfPol']['attributes']\
+                ['tnQosSdIfPolName'] = Slow_Drain_Policy
 
         payload['infraAccPortGrp']['children'].append(slow_drain_policy)
 
         monitoring_policy = {}
         monitoring_policy['infraRsMonIfInfraPol'] = {}
         monitoring_policy['infraRsMonIfInfraPol']['attributes'] = {}
-        monitoring_policy['infraRsMonIfInfraPol']['attributes']['tnMonInfraPolName'] = Monitoring_Policy
+        monitoring_policy['infraRsMonIfInfraPol']['attributes']\
+                ['tnMonInfraPolName'] = Monitoring_Policy
 
         payload['infraAccPortGrp']['children'].append(monitoring_policy)
 
@@ -113,14 +124,16 @@ class createInterfaceGroupPolicy(ACIBaseActions):
         fibre_channel_interface_policy = {}
         fibre_channel_interface_policy['infraRsFcIfPol'] = {}
         fibre_channel_interface_policy['infraRsFcIfPol']['attributes'] = {}
-        fibre_channel_interface_policy['infraRsFcIfPol']['attributes']['tnFcIfPolName'] = Fibre_Channel_Interface_Policy
+        fibre_channel_interface_policy['infraRsFcIfPol']\
+                ['attributes']['tnFcIfPolName'] = Fibre_Channel_Interface_Policy
 
         payload['infraAccPortGrp']['children'].append(fibre_channel_interface_policy)
 
         priority_flow_control_policy = {}
         priority_flow_control_policy['infraRsQosPfcIfPol'] = {}
         priority_flow_control_policy['infraRsQosPfcIfPol']['attributes'] = {}
-        priority_flow_control_policy['infraRsQosPfcIfPol']['attributes']['tnQosPfcIfPolName'] = Priority_Flow_Control_Policy
+        priority_flow_control_policy['infraRsQosPfcIfPol']\
+                ['attributes']['tnQosPfcIfPolName'] = Priority_Flow_Control_Policy
 
         payload['infraAccPortGrp']['children'].append(priority_flow_control_policy)
 
@@ -134,14 +147,16 @@ class createInterfaceGroupPolicy(ACIBaseActions):
         port_security = {}
         port_security['infraRsL2PortSecurityPol'] = {}
         port_security['infraRsL2PortSecurityPol']['attributes'] = {}
-        port_security['infraRsL2PortSecurityPol']['attributes']['tnL2PortSecurityPolName'] = Port_Security_Policy
+        port_security['infraRsL2PortSecurityPol']['attributes']\
+                ['tnL2PortSecurityPolName'] = Port_Security_Policy
 
         payload['infraAccPortGrp']['children'].append(port_security)
 
         dotonex_port_auth_policy = {}
         dotonex_port_auth_policy['infraRsL2PortAuthPol'] = {}
         dotonex_port_auth_policy['infraRsL2PortAuthPol']['attributes'] = {}
-        dotonex_port_auth_policy['infraRsL2PortAuthPol']['attributes']['tnL2PortAuthPolName'] = dot1x_Port_Authentication_Policy
+        dotonex_port_auth_policy['infraRsL2PortAuthPol']['attributes']\
+                ['tnL2PortAuthPolName'] = dot1x_Port_Authentication_Policy
 
         payload['infraAccPortGrp']['children'].append(dotonex_port_auth_policy)
 
