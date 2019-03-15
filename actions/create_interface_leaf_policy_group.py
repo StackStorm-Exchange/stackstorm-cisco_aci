@@ -41,8 +41,7 @@ class createInterfaceGroupPolicy(ACIBaseActions):
         stp_interface_policy = {}
         stp_interface_policy['infraRsStpIfPol'] = {}
         stp_interface_policy['infraRsStpIfPol']['attributes'] = {}
-        stp_interface_policy['infraRsStpIfPol']['attributes']
-        ['tnStpIfPolName'] = STP_Interface_Policy
+        stp_interface_policy['infraRsStpIfPol']['attributes']['tnStpIfPolName'] = STP_Interface_Policy
 
         payload['infraAccPortGrp']['children'].append(stp_interface_policy)
 
