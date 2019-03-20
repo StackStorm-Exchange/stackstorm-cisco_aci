@@ -37,6 +37,10 @@ the `credentials` parameter. This allows for an audit trail within ACI.
 * `cisco_aci.get_vrfs` -  Retrieve list of VRFs
 * `cisco_aci.link_domain` - Associate an EPG with a given Domain
 * `test_endpoint` - retrieve output from a custom Endpoint on the API
+* `cisco_aci.create_interface_leaf_policy_group` - Create Leaf Access Policy Group 
+* `cisco_aci.create_tenant` - Create a Tenant
+* `cisco_aci.get_snapshots` - Retrieve all snapshots
+* `cisco_aci.create_snapshot` - Create a snapshot
 
 ## Workflows
 
