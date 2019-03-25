@@ -1,9 +1,11 @@
 ref: cisco_aci
 name: cisco_aci
 description: Cisco ACI pack
-version: 0.1.4
+version: 0.1.5
 author: Paul Mulvihill
 email: paul.mulvihill@pulsant.com
+contributors:
+    - Kamlesh Koladiya <koladiya_111@yahoo.com>
 keywords:
     - cisco
     - aci
