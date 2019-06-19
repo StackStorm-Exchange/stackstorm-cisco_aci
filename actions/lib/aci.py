@@ -48,10 +48,10 @@ class ACIBaseActions(Action):
             self.apic_passwd = self.config['apic'][apic]['passwd']
 
         if connection_details is not None:
-                if "user" in connection_details.keys():
-                    self.apic_user = connection_details['user']
-                if "passwd" in connection_details.keys():
-                    self.apic_passwd = connection_details['passwd']
+            if "user" in connection_details.keys():
+                self.apic_user = connection_details['user']
+            if "passwd" in connection_details.keys():
+                self.apic_passwd = connection_details['passwd']
 
         self.apic_token = ""
 
