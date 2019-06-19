@@ -1,4 +1,9 @@
 # Change Log
+
+## v0.1.6
+
+- Minor linting fix
+
 ##V0.1.5
 version updated with 4 actions
 
