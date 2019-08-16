@@ -51,56 +51,53 @@ the `credentials` parameter. This allows for an audit trail within ACI.
 
 Most create states use the same format of input. This is a sample of how that input should look:
 
-```json
-{"tenant1":  - Tenant name
-  {
-  "tenant1-AP1": { - Application Profile
-    "tenant1-BD102": { - Bridge Domain
-      "vrf": "tenant1-VRF1", - VRF name
-      "epgs": {
-        "tenant1-EPG102": { - EPG name
-          "desc": "Tenant 1 EPG 102", - EPG description
-          "domains": ["VM1","PHYS"],- Domains to associate with
-          "static_bindings": {
-            "103": - VLAN number
-              [{"leaf1": 46}, {"leaf2": 46}] - Leaf/ports to associate
+```jsonc
+{
+  "tenant1": {  # Tenant name
+    "tenant1-AP1": {  # Application Profile
+      "tenant1-BD102": {  # Bridge Domain
+        "vrf": "tenant1-VRF1",  # VRF name
+        "epgs": {
+          "tenant1-EPG102": {  # EPG name
+            "desc": "Tenant 1 EPG 102",  # EPG description
+            "domains": ["VM1", "PHYS"],  # Domains to associate with
+            "static_bindings": {
+              "103":  # VLAN number
+                [{"leaf1": 46}, {"leaf2": 46}]  # Leaf/ports to associate
             }
           },
-        "tenant1-EPG103": {
-          "desc": "Tenant 1 EPG 103",
-          "domains": ["VM1","PHYS"],
-          "static_bindings": {
-            "104":
-              [{"leaf1": 46}, {"leaf2": 46}]
+          "tenant1-EPG103": {
+            "desc": "Tenant 1 EPG 103",
+            "domains": ["VM1", "PHYS"],
+            "static_bindings": {
+              "104": [{"leaf1": 46}, {"leaf2": 46}]
+            }
           }
         }
       }
-    }
-  },
-  "tenant1-AP2": {
-    "tenant1-BD202": {
-      "vrf": "tenant1-VRF1",
-      "epgs": {
-        "tenant1-EPG202": {
-          "desc": "Tenant 1 EPG 202",
-          "domains": ["VM1","PHYS"],
-          "static_bindings": {
-            "103":
-              [{"leaf1": 46}, {"leaf2": 46}]
+    },
+    "tenant1-AP2": {
+      "tenant1-BD202": {
+        "vrf": "tenant1-VRF1",
+        "epgs": {
+          "tenant1-EPG202": {
+            "desc": "Tenant 1 EPG 202",
+            "domains": ["VM1", "PHYS"],
+            "static_bindings": {
+              "103": [{"leaf1": 46}, {"leaf2": 46}]
             }
           },
-        "tenant1-EPG203": {
-          "desc": "Tenant 1 EPG 203",
-          "domains": ["VM1","PHYS"],
-          "static_bindings": {
-            "104":
-              [{"leaf1": 47}, {"leaf2": 47}]
+          "tenant1-EPG203": {
+            "desc": "Tenant 1 EPG 203",
+            "domains": ["VM1", "PHYS"],
+            "static_bindings": {
+              "104": [{"leaf1": 47}, {"leaf2": 47}]
+            }
           }
         }
       }
     }
   }
-  }    
 }
 ```
 
