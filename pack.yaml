@@ -5,11 +5,11 @@ version: 0.1.6
 author: Paul Mulvihill
 email: paul.mulvihill@pulsant.com
 contributors:
-    - Kamlesh Koladiya <koladiya_111@yahoo.com>
+  - Kamlesh Koladiya <koladiya_111@yahoo.com>
 keywords:
-    - cisco
-    - aci
-    - networking
+  - cisco
+  - aci
+  - networking
 python_versions:
   - "2"
   - "3"
