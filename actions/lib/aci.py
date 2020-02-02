@@ -15,6 +15,7 @@
 # limitations under the License.
 
 import requests
+import six
 
 from st2actions.runners.pythonrunner import Action
 
@@ -175,7 +176,7 @@ class ACIBaseActions(Action):
 
         try:
             ssl_check = self.config['defaults']['ssl']['verify']
-            if type(ssl_check) in (str, unicode):
+            if type(ssl_check) in six.string_types:
                 if ssl_check.upper() == "FALSE":
                     ssl_verify = False
             elif isinstance(ssl_check, bool):
