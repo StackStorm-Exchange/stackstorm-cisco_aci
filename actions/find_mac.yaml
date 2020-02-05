@@ -1,0 +1,23 @@
+---
+  name: "find_mac"
+  runner_type: "python-script"
+  description: "Find a MAC address in the fabric"
+  enabled: true
+  entry_point: "find_mac.py"
+  parameters:
+    apic:
+      type: "string"
+      description: "Which ACI APIC would you like to connect to"
+      required: true
+      position: 0
+    mac:
+      type: "string"
+      description: "MAC Address to find in the fabric"
+      required: true
+      position: 1
+    credentials:
+      type: "object"
+      description: "Field to provide username and password, eg { \"user\":\"username\", \"passwd\": \"secret\" }"
+      required: false
+      secret: true
+      position: 2

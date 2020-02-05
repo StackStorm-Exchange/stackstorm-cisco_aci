@@ -1,0 +1,25 @@
+---
+name: "find_mac"
+pack: "cisco_aci"
+action_ref: "cisco_aci.find_mac"
+description: "Find a MAC address in the ACI fabric"
+
+# Accept these formats as input
+formats:
+  - "aci find mac {{ mac }} on {{ apic }}"
+
+# Just let the user know something is happening
+ack:
+  format: "Working..."
+
+# There may be multiple entries - for each entry, return the following data
+result:
+  format: |
+      Action completed!
+      {% for entry in execution.result.result.imdata -%}
+       mac : {{ entry.fvCEp.attributes.mac }}
+       ip : {{ entry.fvCEp.attributes.ip }}
+       node-rn : {{ entry.fvCEp.children[0].fvRsToVm.children[0].fvReportingNode.attributes.rn }}
+       node-id : {{ entry.fvCEp.children[0].fvRsToVm.children[0].fvReportingNode.attributes.id }}
+       ep : {{ entry.fvCEp.children[3].fvRsCEpToPathEp.attributes.tDn }}
+       dn : {{ entry.fvCEp.attributes.dn }}
