@@ -41,11 +41,18 @@ the `credentials` parameter. This allows for an audit trail within ACI.
 * `cisco_aci.create_tenant` - Create a Tenant
 * `cisco_aci.get_snapshots` - Retrieve all snapshots
 * `cisco_aci.create_snapshot` - Create a snapshot
+* `cisco_aci.find_mac` - Find a MAC address in the fabric
+* `cisco_aci.find_ip` - Find an IP address in the fabric
 
 ## Workflows
 
 * `cisco_aci.setup_epg` - Setup an EPG with all associated Application Profiles, Bridge Domains,
   Static Bindings and Domain Links
+
+## Aliases
+
+* `cisco_aci.find_mac` - Find a MAC address in the fabric
+* `cisco_aci.find_ip` - Find an IP address in the fabric
 
 ## Sample Input
 
