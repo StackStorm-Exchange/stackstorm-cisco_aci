@@ -16,7 +16,7 @@
 from lib.aci import ACIBaseActions
 
 
-class findIP(ACIBaseActions):
-    def run(self, apic="default", credentials=None, ip=None):
+class FindIP(ACIBaseActions):
+    def run(self, apic=None, credentials=None, ip=None):
         self.set_connection(apic, credentials)
         return self.find_ip(ip)

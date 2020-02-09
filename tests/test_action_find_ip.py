@@ -11,12 +11,14 @@
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
-# limitations under the License.
 
-from lib.aci import ACIBaseActions
+# from mock import MagicMock
+
+from aci_base_action_test_case import CiscoACIBaseActionTestCase
+
+from find_ip import FindIP
 
 
-class FindMAC(ACIBaseActions):
-    def run(self, apic=None, credentials=None, mac=None):
-        self.set_connection(apic, credentials)
-        return self.find_mac(mac)
+class GetAPsActionTestCase(CiscoACIBaseActionTestCase):
+    __test__ = True
+    action_cls = FindIP

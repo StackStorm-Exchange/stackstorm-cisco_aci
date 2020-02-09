@@ -13,13 +13,29 @@ ack:
   format: "Working..."
 
 # There may be multiple entries - for each entry, return the following data
+# Depending on the IP address some values may be available, some not.
 result:
   format: |
       Action completed!
-      {% for entry in execution.result.result.imdata -%}
-       mac : {{ entry.fvCEp.attributes.mac }}
-       ip : {{ entry.fvCEp.attributes.ip }}
-       node-rn : {{ entry.fvCEp.children[0].fvRsToVm.children[0].fvReportingNode.attributes.rn }}
-       node-id : {{ entry.fvCEp.children[0].fvRsToVm.children[0].fvReportingNode.attributes.id }}
-       ep : {{ entry.fvCEp.children[3].fvRsCEpToPathEp.attributes.tDn }}
-       dn : {{ entry.fvCEp.attributes.dn }}
+      {% if execution.result.result.totalCount == '0' %}
+      No entry found!
+      {% else %}
+      {% for entry in execution.result.result.imdata %}
+      mac : {{ entry.fvCEp.attributes.mac }}
+      {% if entry['fvCEp'].attributes.ip %}
+      ip : {{ entry.fvCEp.attributes.ip }}
+      {% endif %}
+      {% if entry['fvCEp'].children[0].fvRsToVm -%}
+      node-rn : {{ entry.fvCEp.children[0].fvRsToVm.children[0].fvReportingNode.attributes.rn }}
+      {% endif %}
+      {% if entry['fvCEp'].children[0].fvRsToVm -%}
+      node-id : {{ entry.fvCEp.children[0].fvRsToVm.children[0].fvReportingNode.attributes.id }}
+      {% endif %}
+      {% if entry['fvCEp'].children[3] %}
+      ep : {{ entry.fvCEp.children[3].fvRsCEpToPathEp.attributes.tDn }}
+      {% endif %}
+      {% if entry['fvCEp'].attributes.dn %}
+      dn : {{ entry.fvCEp.attributes.dn }}
+      {% endif %}
+      {% endfor %}
+      {% endif %}

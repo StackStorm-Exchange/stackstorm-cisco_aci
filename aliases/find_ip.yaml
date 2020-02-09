@@ -13,13 +13,18 @@ ack:
   format: "Working..."
 
 # There may be multiple entries - for each entry, return the following data
+# Depending on the IP address some values may be available, some not.
 result:
   format: |
       Action completed!
-      {% for entry in execution.result.result.imdata -%}
-       mac : {{ entry.fvCEp.attributes.mac }}
-       ip : {{ entry.fvCEp.attributes.ip }}
-       node-rn : {{ entry.fvCEp.children[0].fvIp.children[0].fvReportingNode.attributes.rn }}
-       node-id : {{ entry.fvCEp.children[0].fvIp.children[0].fvReportingNode.attributes.id }}
-       dn : {{ entry.fvCEp.attributes.dn }}
-      {%+ endfor %}
+      {% if execution.result.result.totalCount == '0' %}
+      No entry found!
+      {% else %}
+      {% for entry in execution.result.result.imdata %}
+      mac : {{ entry.fvCEp.attributes.mac }}
+      ip : {{ entry.fvCEp.attributes.ip }}
+      node-rn : {{ entry.fvCEp.children[0].fvIp.children[0].fvReportingNode.attributes.rn }}
+      node-id : {{ entry.fvCEp.children[0].fvIp.children[0].fvReportingNode.attributes.id }}
+      dn : {{ entry.fvCEp.attributes.dn }}
+      {% endfor %}
+      {% endif %}
