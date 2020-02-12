@@ -8,7 +8,7 @@
 
 - Minor linting fix
 
-##V0.1.5
+## V0.1.5
 - version updated with 4 actions
 
 ## V0.1.4
