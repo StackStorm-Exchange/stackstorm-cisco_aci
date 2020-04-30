@@ -161,6 +161,17 @@ class ACIBaseActions(Action):
             domains.append(entry['fvRsDomAtt']['attributes']['tDn'])
         return domains
 
+    def find_mac(self, mac):
+        endpoint = 'node/class/fvCEp.json?rsp-subtree=full&rsp-subtree-class=fvCEp,'\
+                   'fvRsCEpToPathEp,fvIp,fvRsHyper,fvRsToNic,fvRsToVm&'\
+                   'query-target-filter=eq(fvCEp.mac,"%s")' % (mac)
+        return self.aci_get(endpoint)
+
+    def find_ip(self, ip):
+        endpoint = 'node/class/fvCEp.json?rsp-subtree=full&rsp-subtree-include='\
+                   'required&rsp-subtree-filter=eq(fvIp.addr,"%s")' % (ip)
+        return self.aci_get(endpoint)
+
     def aci_get(self, endpoint):
         url = 'https://%s/api/%s' % (self.apic_address, endpoint)
         headers = {'Accept': 'application/json'}

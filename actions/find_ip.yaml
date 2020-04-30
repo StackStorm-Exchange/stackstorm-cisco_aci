@@ -1,0 +1,23 @@
+---
+  name: "find_ip"
+  runner_type: "python-script"
+  description: "Find an IP address in the fabric"
+  enabled: true
+  entry_point: "find_ip.py"
+  parameters:
+    apic:
+      type: "string"
+      description: "Which ACI APIC would you like to connect to"
+      required: true
+      position: 0
+    ip:
+      type: "string"
+      description: "IP Address to find in the fabric"
+      required: true
+      position: 1
+    credentials:
+      type: "object"
+      description: "Field to provide username and password, eg { \"user\":\"username\", \"passwd\": \"secret\" }"
+      required: false
+      secret: true
+      position: 2
