@@ -1,4 +1,9 @@
 # Change Log
+## v1.0.0
+
+* Drop Python 2.7 support
+* Convert workflows to mistral using orquestaconvert
+
 ## v0.2.0
 
 - Add find_mac and find_ip actions, aliases, and tests

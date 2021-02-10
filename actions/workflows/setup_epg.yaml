@@ -1,53 +1,94 @@
 ---
-version: '2.0'
-
-cisco_aci.setup_epg:
-  description: "Create an EPG with supporting bridge domain and Static Bindings"
-  input:
-    - apic
-    - epg_spec
-    - credentials
-  tasks:
-    build_ap:
-      action: cisco_aci.create_ap
-      wait-after: 2
-      input:
-        apic: <% $.apic %>
-        data: <% $.epg_spec %>
-        credentials: <% $.credentials %>
-      on-success:
-        - build_bd 
-    build_bd:
-      action: cisco_aci.create_bd
-      wait-after: 2
-      input:
-        apic: <% $.apic %>
-        data: <% $.epg_spec %>
-        credentials: <% $.credentials %>
-      on-success:
-        - build_epg 
-    build_epg:
-      action: cisco_aci.create_epg
-      wait-after: 2
-      input:
-        apic: <% $.apic %>
-        data: <% $.epg_spec %>
-        credentials: <% $.credentials %>
-      on-success:
-        - link_domains
-    link_domains:
-      action: cisco_aci.link_domain
-      wait-after: 2
-      input:
-        apic: <% $.apic %>
-        data: <% $.epg_spec %>
-        credentials: <% $.credentials %>
-      on-success:
-        - build_static_bindings
-    build_static_bindings:
-      action: cisco_aci.create_static_binding
-      wait-after: 2
-      input:
-        apic: <% $.apic %>
-        data: <% $.epg_spec %>
-        credentials: <% $.credentials %>
+version: '1.0'
+description: Create an EPG with supporting bridge domain and Static Bindings
+input:
+  - apic
+  - epg_spec
+  - credentials
+tasks:
+  build_ap:
+    action: cisco_aci.create_ap
+    input:
+      apic: <% ctx().apic %>
+      data: <% ctx().epg_spec %>
+      credentials: <% ctx().credentials %>
+    next:
+      - when: '{{ succeeded() }}'
+        do:
+          - wait_for_build_ap
+  wait_for_build_ap:
+    action: core.pause
+    input:
+      max_pause: 2
+    next:
+      - when: '{{ succeeded() }}'
+        do:
+          - build_bd
+  build_bd:
+    action: cisco_aci.create_bd
+    input:
+      apic: <% ctx().apic %>
+      data: <% ctx().epg_spec %>
+      credentials: <% ctx().credentials %>
+    next:
+      - when: '{{ succeeded() }}'
+        do:
+          - wait_for_build_bd
+  wait_for_build_bd:
+    action: core.pause
+    input:
+      max_pause: 2
+    next:
+      - when: '{{ succeeded() }}'
+        do:
+          - build_epg
+  build_epg:
+    action: cisco_aci.create_epg
+    input:
+      apic: <% ctx().apic %>
+      data: <% ctx().epg_spec %>
+      credentials: <% ctx().credentials %>
+    next:
+      - when: '{{ succeeded() }}'
+        do:
+          - wait_for_build_epg
+  wait_for_build_epg:
+    action: core.pause
+    input:
+      max_pause: 2
+    next:
+      - when: '{{ succeeded() }}'
+        do:
+          - link_domains
+  link_domains:
+    action: cisco_aci.link_domain
+    input:
+      apic: <% ctx().apic %>
+      data: <% ctx().epg_spec %>
+      credentials: <% ctx().credentials %>
+    next:
+      - when: '{{ succeeded() }}'
+        do:
+          - wait_for_link_domains
+  wait_for_link_domains:
+    action: core.pause
+    input:
+      max_pause: 2
+    next:
+      - when: '{{ succeeded() }}'
+        do:
+          - build_static_bindings
+  build_static_bindings:
+    action: cisco_aci.create_static_binding
+    input:
+      apic: <% ctx().apic %>
+      data: <% ctx().epg_spec %>
+      credentials: <% ctx().credentials %>
+    next:
+      - when: '{{ succeeded() }}'
+        do:
+          - wait_for_build_static_bindings
+  wait_for_build_static_bindings:
+    action: core.pause
+    input:
+      max_pause: 2
