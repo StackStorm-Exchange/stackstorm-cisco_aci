@@ -13,7 +13,7 @@ tasks:
       data: <% ctx().epg_spec %>
       credentials: <% ctx().credentials %>
     next:
-      - when: '{{ succeeded() }}'
+      - when: <% succeeded() %>
         do:
           - wait_for_build_ap
   wait_for_build_ap:
@@ -21,7 +21,7 @@ tasks:
     input:
       max_pause: 2
     next:
-      - when: '{{ succeeded() }}'
+      - when: <% succeeded() %>
         do:
           - build_bd
   build_bd:
@@ -31,7 +31,7 @@ tasks:
       data: <% ctx().epg_spec %>
       credentials: <% ctx().credentials %>
     next:
-      - when: '{{ succeeded() }}'
+      - when: <% succeeded() %>
         do:
           - wait_for_build_bd
   wait_for_build_bd:
@@ -39,7 +39,7 @@ tasks:
     input:
       max_pause: 2
     next:
-      - when: '{{ succeeded() }}'
+      - when: <% succeeded() %>
         do:
           - build_epg
   build_epg:
@@ -49,7 +49,7 @@ tasks:
       data: <% ctx().epg_spec %>
       credentials: <% ctx().credentials %>
     next:
-      - when: '{{ succeeded() }}'
+      - when: <% succeeded() %>
         do:
           - wait_for_build_epg
   wait_for_build_epg:
@@ -57,7 +57,7 @@ tasks:
     input:
       max_pause: 2
     next:
-      - when: '{{ succeeded() }}'
+      - when: <% succeeded() %>
         do:
           - link_domains
   link_domains:
@@ -67,7 +67,7 @@ tasks:
       data: <% ctx().epg_spec %>
       credentials: <% ctx().credentials %>
     next:
-      - when: '{{ succeeded() }}'
+      - when: <% succeeded() %>
         do:
           - wait_for_link_domains
   wait_for_link_domains:
@@ -75,7 +75,7 @@ tasks:
     input:
       max_pause: 2
     next:
-      - when: '{{ succeeded() }}'
+      - when: <% succeeded() %>
         do:
           - build_static_bindings
   build_static_bindings:
@@ -85,7 +85,7 @@ tasks:
       data: <% ctx().epg_spec %>
       credentials: <% ctx().credentials %>
     next:
-      - when: '{{ succeeded() }}'
+      - when: <% succeeded() %>
         do:
           - wait_for_build_static_bindings
   wait_for_build_static_bindings:
